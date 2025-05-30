@@ -5,127 +5,96 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SavorSoCal - Discover LA's Food Trucks</title>
     <meta name="description" content="SavorSoCal is the ultimate discovery platform for LA’s vibrant food truck scene—connecting hungry users with real-time locations, exclusive deals, and street food experiences.">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'sunset-orange': '#FF5733',
+                        'pacific-blue': '#1E90FF',
+                        'lemon-yellow': '#FFD700',
+                        'avocado-green': '#A2B70D',
+                        'sand-beige': '#F5F5DC',
+                    },
+                    spacing: {
+                         '18': '4.5rem', 
+                         '40': '10rem', 
+                    },
+                     backgroundSize: {
+                         'size-18': '18px', 
+                    },
+                }
+            }
+        }
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Pacifico&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"/>
     <script type="importmap">
         {
             "imports": {
-                "jquery": "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js",
-                "slick-carousel": "https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"
+                "slick-carousel": "https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js",
+                "jquery": "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
             }
         }
     </script>
 </head>
-<body>
-    <header class="hero">
-        <div class="container header-container">
-            <img src="savor-socal-logo.png" alt="SavorSoCal Logo" class="logo">
-            <h1>SavorSoCal</h1>
-            <p class="tagline">Taste the Streets.</p>
-            <p class="vision">SavorSoCal is the ultimate discovery platform for LA’s vibrant food truck scene—connecting hungry users with real-time locations, exclusive deals, and street food experiences, all through an app that reflects SoCal’s culture, flavors, and community vibe.</p>
-            <a href="#" class="cta-button">Get the App</a>
-             <div class="cart-icon">
-                <img src="cart-icon.png" alt="Cart Icon">
-                <span class="cart-count">0</span>
-            </div>
+<body class="bg-gradient-to-br from-sand-beige via-white to-blue-50 text-gray-800 font-sans antialiased min-h-screen">
+    <header class="backdrop-blur-xl bg-white/80 shadow-lg sticky top-0 z-50 py-3 border-b border-white/20">
+        <div class="container mx-auto px-4 flex items-center justify-between">
+            <img src="savor-socal-logo.png" alt="SavorSoCal Logo" class="w-10 h-auto mr-2 inline-block align-middle">
+            <h1 class="text-xl font-bold text-gray-800 flex-grow m-0 inline-block align-middle">SavorSoCal</h1>
+            <nav class="flex items-center space-x-4">
+                 <a href="#" class="flex items-center justify-center w-7 h-7" aria-label="Search">
+                     <img src="search-icon.png" alt="Search Icon">
+                 </a>
+                 <a href="#" class="flex items-center justify-center w-7 h-7" aria-label="Profile">
+                    <img src="profile-icon.png" alt="Profile Icon">
+                </a>
+                <a href="checkout.html" class="flex items-center justify-center w-7 h-7 relative cart-icon" aria-label="View Cart">
+                    <img src="cart-icon.png" alt="Cart Icon">
+                    <span class="cart-count absolute -top-2 -right-2 bg-sunset-orange text-white rounded-full w-4 h-4 text-xs font-bold flex items-center justify-center p-1" style="display: none;">0</span>
+                </a>
+            </nav>
+        </div>
+        <div class="search-bar-container container mx-auto px-4 pt-1 pb-4">
+            <input type="text" class="search-input w-full px-4 py-2 border border-gray-300 rounded-full text-base box-border bg-[url('search-icon.png')] bg-no-repeat bg-[15px_center] pl-10 bg-size-18 placeholder-gray-500" placeholder="Search Food Trucks or Cuisine">
         </div>
     </header>
 
-    <section class="features">
-        <div class="container">
-            <h2>Core Features</h2>
-            <div class="feature-grid">
-                <div class="feature-item">
-                    <img src="map-icon.png" alt="Interactive Map Icon">
-                    <h3>Interactive Map</h3>
-                    <p>Real-time display of nearby food trucks with filters by cuisine, deals, or distance.</p>
-                </div>
-                <div class="feature-item">
-                    <img src="profile-icon.png" alt="Vendor Profiles Icon">
-                    <h3>Vendor Profiles</h3>
-                    <p>Rich pages with menus, images, ratings, hours, and promo codes.</p>
-                </div>
-                <div class="feature-item">
-                     <img src="deal-icon.png" alt="Discount Code System Icon">
-                    <h3>Discount Codes</h3>
-                    <p>Exclusive in-app promos with a rotating “Deal of the Day.”</p>
-                </div>
-                 <div class="feature-item">
-                    <img src="heart-icon.png" alt="Favorites & Alerts Icon">
-                    <h3>Favorites & Alerts</h3>
-                    <p>Users can save trucks and receive location or deal notifications.</p>
-                </div>
-                 <div class="feature-item">
-                    <img src="dashboard-icon.png" alt="Vendor Dashboard Icon">
-                    <h3>Vendor Dashboard</h3>
-                    <p>Subscription tool for vendors to update menus, post deals, and track performance.</p>
-                </div>
-                 <div class="feature-item">
-                    <img src="search-icon.png" alt="Search & Discovery Icon">
-                    <h3>Search & Discovery</h3>
-                    <p>Keyword search and curated categories like “Beachside Bites” or “Korean BBQ.”</p>
-                </div>
+    <main class="container mx-auto px-4 pt-6">
+        <section class="truck-listing-section mb-12">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold bg-gradient-to-r from-pacific-blue to-sunset-orange bg-clip-text text-transparent mb-3">Featured Food Trucks</h2>
+                <p class="text-gray-600 text-lg">Discover the best street food near you</p>
             </div>
-        </div>
-    </section>
-
-     <section class="vibe">
-        <div class="container">
-            <h2>The SavorSoCal Experience</h2>
-            <p>SavorSoCal should feel like a day at Venice Beach—sunny, flavorful, and spontaneous. The interface invites exploration, while the tone makes users feel like they’re part of LA’s culinary culture.</p>
-            <div class="vibe-imagery">
-                 <img src="food-truck-la.png" alt="LA Food Truck Scene">
-                 <img src="delicious-food.png" alt="Delicious Street Food">
-                 <img src="happy-people.png" alt="People enjoying food trucks">
+            <div class="truck-list-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                <!-- Food truck items will be rendered here -->
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="menu-section">
-        <div class="container">
-            <h2>Try These Bites!</h2>
-            <div class="menu-carousel">
-                </div>
+        <section class="menu-section py-12 bg-gradient-to-r from-white/60 to-blue-50/40 backdrop-blur-sm rounded-3xl shadow-xl border border-white/30 mt-12">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold bg-gradient-to-r from-pacific-blue to-sunset-orange bg-clip-text text-transparent mb-3">Try These Bites!</h2>
+                <p class="text-gray-600 text-lg">Sample menu from our featured trucks</p>
             </div>
-        </div>
-    </section>
-
-     <section class="target-audience">
-        <div class="container">
-            <h2>Who It's For</h2>
-            <div class="audience-grid">
-                <div>
-                    <h3>Primary Users</h3>
-                    <ul>
-                        <li>Foodies aged 18–45 in LA.</li>
-                        <li>Tourists exploring the city.</li>
-                        <li>Locals seeking quick, tasty meals.</li>
-                    </ul>
-                </div>
-                 <div>
-                    <h3>Vendors</h3>
-                    <ul>
-                        <li>Independent food truck operators.</li>
-                        <li>Trucks wanting to increase traffic.</li>
-                        <li>Vendors looking for marketing tools.</li>
-                    </ul>
-                </div>
+            <div class="menu-carousel px-5">
+                <!-- Menu items will be loaded here by JS -->
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    <footer>
-        <div class="container">
+    <footer class="bg-pacific-blue text-white text-center py-4 mt-8">
+        <div class="container mx-auto">
             <p>&copy; 2024 SavorSoCal. All rights reserved.</p>
         </div>
     </footer>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script type="module">
-        import $ from 'jquery';
         import 'slick-carousel';
 
         const menuItems = [
@@ -137,30 +106,72 @@
             { name: "BBQ Ribs", price: "15.00", image: "delicious-food.png" }
         ];
 
+        const foodTrucks = [
+            { id: 'truck1', name: 'The Taco Spot', cuisine: 'Mexican', rating: 4.8, imageUrl: 'food-truck-la.png', description: 'Authentic street tacos and burritos.' },
+            { id: 'truck2', name: 'Burger Haven', cuisine: 'American', rating: 4.5, imageUrl: 'food-truck-la.png', description: 'Gourmet burgers with a SoCal twist.' },
+            { id: 'truck3', name: 'Korean BBQ Delight', cuisine: 'Korean BBQ', rating: 4.9, imageUrl: 'food-truck-la.png', description: 'Marinated meats and savory sides.' },
+            { id: 'truck4', name: 'Veggie Vibes', cuisine: 'Vegan/Vegetarian', rating: 4.7, imageUrl: 'food-truck-la.png', description: 'Healthy and delicious plant-based options.' },
+             { id: 'truck5', name: 'Seaside Seafood', cuisine: 'Seafood', rating: 4.6, imageUrl: 'food-truck-la.png', description: 'Fresh fish tacos and ceviche.' }
+        ];
+
         const menuCarousel = document.querySelector('.menu-carousel');
+        const truckListGrid = document.querySelector('.truck-list-grid');
         const cartCountSpan = document.querySelector('.cart-count');
-        let cartItemCount = 0;
+        let cart = []; 
+
+        function loadCart() {
+            const savedCart = localStorage.getItem('savorSoCalCart');
+            if (savedCart) {
+                cart = JSON.parse(savedCart);
+            }
+            updateCartCount();
+        }
+
+        function saveCart() {
+            localStorage.setItem('savorSoCalCart', JSON.stringify(cart));
+            updateCartCount();
+        }
 
         function renderMenuItems() {
+            menuCarousel.innerHTML = ''; 
             menuItems.forEach(item => {
                 const itemElement = document.createElement('div');
-                itemElement.classList.add('menu-item');
+                itemElement.classList.add('menu-item', 'text-center', 'p-4', 'bg-gray-100', 'rounded-lg', 'shadow-sm', 'mx-2', 'min-h-[300px]', 'flex', 'flex-col', 'justify-between');
                 itemElement.innerHTML = `
-                    <img src="${item.image}" alt="${item.name}">
-                    <h3>${item.name}</h3>
-                    <p>$${item.price}</p>
-                    <button class="add-to-cart" data-name="${item.name}" data-price="${item.price}">Add to Cart</button>
+                    <img src="${item.image}" alt="${item.name}" class="w-full h-40 object-cover rounded mb-2">
+                    <h3 class="mt-1 mb-1 text-lg font-semibold text-sunset-orange">${item.name}</h3>
+                    <p class="mt-1 mb-4 text-base font-bold text-gray-800">$${parseFloat(item.price).toFixed(2)}</p>
+                    <button class="add-to-cart bg-pacific-blue text-white py-2 px-4 border-none rounded cursor-pointer text-base transition-colors duration-300 mt-auto hover:bg-[#1a7cdb] disabled:bg-gray-400 disabled:cursor-not-allowed" data-name="${item.name}" data-price="${item.price}">Add to Cart</button>
                 `;
                 menuCarousel.appendChild(itemElement);
             });
         }
 
+        function renderFoodTrucks() {
+            truckListGrid.innerHTML = ''; 
+            foodTrucks.forEach(truck => {
+                const truckElement = document.createElement('div');
+                truckElement.classList.add('truck-item', 'bg-white', 'rounded-lg', 'shadow-md', 'overflow-hidden', 'cursor-pointer', 'transform', 'transition-transform', 'duration-200', 'hover:translate-y-[-5px]', 'hover:shadow-lg', 'flex', 'flex-col');
+                truckElement.dataset.truckId = truck.id; 
+                truckElement.innerHTML = `
+                    <img src="${truck.imageUrl}" alt="${truck.name}" class="w-full h-40 object-cover border-b border-gray-200">
+                    <div class="truck-info p-4 flex flex-col flex-grow">
+                        <h3 class="mt-0 mb-1 text-lg font-semibold text-gray-800">${truck.name}</h3>
+                        <p class="cuisine text-sm text-gray-600 mb-1">${truck.cuisine}</p>
+                        <p class="rating text-sm text-sunset-orange mb-2">Rating: ${truck.rating} ⭐</p>
+                        <p class="description text-sm text-gray-700 mb-0 flex-grow">${truck.description}</p>
+                    </div>
+                `;
+                truckListGrid.appendChild(truckElement);
+            });
+        }
+
         function updateCartCount() {
-            cartCountSpan.textContent = cartItemCount;
-             if (cartItemCount > 0) {
-                cartCountSpan.style.display = 'flex'; // Or 'block', 'inline-block'
+            cartCountSpan.textContent = cart.length;
+            if (cart.length > 0) {
+                cartCountSpan.style.display = 'flex'; 
             } else {
-                cartCountSpan.style.display = 'none';
+                cartCountSpan.style.display = 'none'; 
             }
         }
 
@@ -169,26 +180,27 @@
             if (button.classList.contains('add-to-cart')) {
                 const itemName = button.dataset.name;
                 const itemPrice = button.dataset.price;
-                console.log(`Added ${itemName} ($${itemPrice}) to cart`); // Simulate adding
-                cartItemCount++;
-                updateCartCount();
 
-                // Optional: Provide visual feedback
+                cart.push({ name: itemName, price: itemPrice });
+
+                saveCart();
+
+                console.log(`Added ${itemName} ($${itemPrice}) to cart`); 
+
                 button.textContent = 'Added!';
                 button.disabled = true;
                 setTimeout(() => {
                     button.textContent = 'Add to Cart';
                     button.disabled = false;
-                }, 1000); // Reset button after 1 second
+                }, 1000); 
             }
         }
 
-        // Initial render
         renderMenuItems();
+        renderFoodTrucks();
 
-        // Initialize Slick Carousel after items are rendered
         $(document).ready(function(){
-             $('.menu-carousel').slick({
+            $('.menu-carousel').slick({
                 slidesToShow: 3,
                 slidesToScroll: 1,
                 autoplay: true,
@@ -210,12 +222,41 @@
             });
         });
 
-        // Add event listener for "Add to Cart" buttons using delegation
         menuCarousel.addEventListener('click', handleAddToCart);
 
-        // Initialize cart count display
-        updateCartCount();
+        truckListGrid.addEventListener('click', (event) => {
+             const truckItem = event.target.closest('.truck-item');
+             if (truckItem) {
+                 const truckId = truckItem.dataset.truckId;
+                 alert(`Simulating viewing menu for ${truckItem.querySelector('h3').textContent} (ID: ${truckId})\n\n(This would link to a specific truck page in a real app)`);
+             }
+         });
 
+        loadCart();
+
+        const searchInput = document.querySelector('.search-input');
+        searchInput.addEventListener('input', (event) => {
+            const query = event.target.value.toLowerCase();
+            const truckItems = truckListGrid.querySelectorAll('.truck-item');
+
+            truckItems.forEach(item => {
+                const name = item.querySelector('h3').textContent.toLowerCase();
+                const cuisine = item.querySelector('.cuisine').textContent.toLowerCase();
+                const description = item.querySelector('.description').textContent.toLowerCase();
+
+                if (name.includes(query) || cuisine.includes(query) || description.includes(query)) {
+                    item.style.display = 'flex'; 
+                } else {
+                    item.style.display = 'none'; 
+                }
+            });
+            const featuredTitle = document.querySelector('.truck-listing-section h2');
+            if (query) {
+                featuredTitle.style.display = 'none';
+            } else {
+                featuredTitle.style.display = 'block';
+            }
+        });
     </script>
 </body>
 </html>
