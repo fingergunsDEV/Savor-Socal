@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - SavorSoCal</title>
+    <meta name="description" content="Review your order and estimate your route for SavorSoCal food truck orders.">
+    <!-- Link to minimal custom CSS for overrides -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configure Tailwind colors -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'sunset-orange': '#FF5733',
+                        'pacific-blue': '#1E90FF',
+                        'lemon-yellow': '#FFD700',
+                        'avocado-green': '#A2B70D',
+                        'sand-beige': '#'
+                    }
+                }
+            }
+        };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+</head>
+<body class="checkout-page bg-gradient-to-br from-sand-beige via-white to-blue-50 min-h-screen">
+    <header class="hero minimal backdrop-blur-xl bg-pacific-blue/90 shadow-lg">
+        <div class="container header-container">
+            <a href="index.html">
+                 <img src="savor-socal-logo.png" alt="SavorSoCal Logo" class="logo">
+            </a>
+            <h1>Checkout</h1>
+             <div class="cart-icon">
+                <img src="cart-icon.png" alt="Cart Icon">
+                <span class="cart-count">0</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="container checkout-main">
+        <section class="cart-summary bg-white/80 backdrop-blur-lg rounded-2xl shadow-xl border border-white/20">
+            <h2>Your Order</h2>
+            <div id="cart-items-list">
+                <!-- Cart items will be loaded here by JS -->
+                <p id="empty-cart-message">Your cart is empty.</p>
+            </div>
+            <div class="order-total">
+                <strong>Total:</strong> <span id="cart-total">$0.00</span>
+            </div>
+        </section>
+
+        <section class="route-estimator bg-white/80 backdrop-blur-lg rounded-2xl shadow-xl border border-white/20">
+            <h2>Route Estimation</h2>
+            <p>Enter your location to get an estimated route and time from the food truck.</p>
+            <div class="estimator-form">
+                <input type="text" id="destination" placeholder="Enter delivery address or zip code">
+                <button id="get-estimate">Get Estimate</button>
+            </div>
+            <div id="estimate-result">
+                <!-- Route estimate will be shown here by JS -->
+            </div>
+        </section>
+
+        <section class="checkout-action bg-white/80 backdrop-blur-lg rounded-2xl shadow-xl border border-white/20">
+            <h2>Complete Order</h2>
+            <button id="place-order-button" class="cta-button" disabled>Place Order</button>
+             <p class="note">Note: This is a demo. No real order will be placed.</p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 SavorSoCal. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script type="module">
+        const cartItemsList = document.getElementById('cart-items-list');
+        const cartTotalSpan = document.getElementById('cart-total');
+        const emptyCartMessage = document.getElementById('empty-cart-message');
+        const destinationInput = document.getElementById('destination');
+        const getEstimateButton = document.getElementById('get-estimate');
+        const estimateResultDiv = document.getElementById('estimate-result');
+        const placeOrderButton = document.getElementById('place-order-button');
+        const cartCountSpan = document.querySelector('.cart-count'); // For header cart count
+
+        let cart = [];
+
+        // Load cart from localStorage
+        function loadCart() {
+            const savedCart = localStorage.getItem('savorSoCalCart');
+            if (savedCart) {
+                cart = JSON.parse(savedCart);
+            }
+            renderCart();
+            updateCartCount();
+        }
+
+        // Save cart to localStorage
+        function saveCart() {
+            localStorage.setItem('savorSoCalCart', JSON.stringify(cart));
+            updateCartCount();
+        }
+
+        // Render cart items on the page
+        function renderCart() {
+            cartItemsList.innerHTML = ''; // Clear current list
+            let total = 0;
+
+            if (cart.length === 0) {
+                emptyCartMessage.style.display = 'block';
+                placeOrderButton.disabled = true;
+            } else {
+                emptyCartMessage.style.display = 'none';
+                 placeOrderButton.disabled = false;
+                cart.forEach((item, index) => {
+                    const itemElement = document.createElement('div');
+                    itemElement.classList.add('cart-item');
+                    const itemPrice = parseFloat(item.price);
+                    total += itemPrice;
+                    itemElement.innerHTML = `
+                        <span>${item.name}</span>
+                        <span>$${itemPrice.toFixed(2)}</span>
+                         <button class="remove-item" data-index="${index}">Remove</button>
+                    `;
+                    cartItemsList.appendChild(itemElement);
+                });
+            }
+
+            cartTotalSpan.textContent = `$${total.toFixed(2)}`;
+        }
+
+         // Update the header cart count (since it's also on this page)
+        function updateCartCount() {
+            cartCountSpan.textContent = cart.length;
+            if (cart.length > 0) {
+                cartCountSpan.style.display = 'flex';
+            } else {
+                cartCountSpan.style.display = 'none';
+            }
+        }
+
+
+        // Handle removing an item from the cart
+        function handleRemoveItem(event) {
+            if (event.target.classList.contains('remove-item')) {
+                const indexToRemove = parseInt(event.target.dataset.index, 10);
+                cart.splice(indexToRemove, 1); // Remove item from array
+                saveCart(); // Save updated cart
+                renderCart(); // Re-render the list
+            }
+        }
+
+        // Simulate route estimation
+        function simulateRouteEstimation() {
+            const destination = destinationInput.value.trim();
+            if (!destination) {
+                estimateResultDiv.textContent = 'Please enter a destination.';
+                return;
+            }
+
+            estimateResultDiv.innerHTML = `
+                <p>Simulating route to "${destination}"...</p>
+                <p>Estimated distance: ~${(Math.random() * 10 + 1).toFixed(1)} miles</p>
+                <p>Estimated time: ~${Math.floor(Math.random() * 30 + 15)} minutes</p>
+                <p class="note">Note: This is a simulated estimate for demonstration purposes.</p>
+            `;
+        }
+
+        // Handle place order button click
+        function handlePlaceOrder() {
+            if (cart.length > 0) {
+                alert('Demo Order Placed!\n\nItems: ' + cart.map(item => item.name).join(', ') + '\nTotal: ' + cartTotalSpan.textContent + '\n\n(Note: This is a simulation)');
+                // Clear the cart after simulating order
+                cart = [];
+                saveCart();
+                renderCart();
+                 estimateResultDiv.innerHTML = ''; // Clear estimation
+                 destinationInput.value = ''; // Clear destination
+            } else {
+                alert('Your cart is empty!');
+            }
+        }
+
+        // Add event listeners
+        cartItemsList.addEventListener('click', handleRemoveItem);
+        getEstimateButton.addEventListener('click', simulateRouteEstimation);
+        placeOrderButton.addEventListener('click', handlePlaceOrder);
+
+        // Load cart when the page loads
+        loadCart();
+
+    </script>
+</body>
+</html>
